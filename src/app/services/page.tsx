@@ -1,42 +1,29 @@
-import React from 'react'
-import Container from '@mui/material/Container'
-import Typography from '@mui/material/Typography'
-import Stack from '@mui/material/Stack'
-import ServiceCard from '../../components/ServiceCard'
-
-const services = [
-  {
-    id: 's1',
-    title: 'Liệu trình tắm trắng y tế',
-    description: 'Tắm trắng an toàn bằng công nghệ thẩm mỹ kết hợp dưỡng chuyên sâu.',
-    image: '/services.jpg',
-    price: 'Từ 1.200.000đ'
-  },
-  {
-    id: 's2',
-    title: 'Căng da mặt không phẫu thuật',
-    description: 'Sử dụng công nghệ RF và filler an toàn, phục hồi nhanh.',
-    image: '/services.jpg',
-    price: 'Từ 2.500.000đ'
-  },
-  {
-    id: 's3',
-    title: 'Massage thư giãn & dưỡng da',
-    description: 'Liệu trình kết hợp massage và mặt nạ tạo cảm giác thư thái.',
-    image: '/services.jpg',
-    price: 'Từ 300.000đ'
-  }
-]
+import React from 'react';
+import { Container, Typography, Grid } from '@mui/material';
+import ServiceCard from '@/components/ServiceCard';
+import SafeImage from '@/components/SafeImage';
 
 export default function ServicesPage() {
+  const list = [
+    { id: 's1', title: 'Làm sáng da bằng ánh sáng', desc: 'Liệu trình 6 buổi - cải thiện sạm, tăng độ đều màu', img: '/services.jpg' },
+    { id: 's2', title: 'Nâng cơ trẻ hóa', desc: 'Công nghệ RF, giảm nhăn, săn chắc cơ', img: '/sample-before-after/combined1.jpg' },
+    { id: 's3', title: 'Tẩy tế bào chết chuyên sâu', desc: 'Da mịn màng, sẵn sàng cho điều trị tiếp theo', img: '/services.jpg' }
+  ];
+
   return (
-    <Container maxWidth="lg" sx={{ mt: 6, mb: 8 }}>
-      <Typography variant="h4" sx={{ mb: 3 }}>Danh sách dịch vụ</Typography>
-      <Stack spacing={3}>
-        {services.map(s => (
-          <ServiceCard key={s.id} title={s.title} description={s.description} image={s.image} price={s.price} />
+    <Container className="container" sx={{ py: 6 }}>
+      <Typography variant="h4" sx={{ mb: 2, fontWeight: 700 }}>Dịch vụ của chúng tôi</Typography>
+      <Typography variant="body1" sx={{ mb: 4 }}>
+        Các gói dịch vụ được thiết kế phù hợp cho từng loại da và nhu cầu thẩm mỹ.
+      </Typography>
+
+      <Grid container spacing={3}>
+        {list.map((svc) => (
+          <Grid item xs={12} sm={6} md={4} key={svc.id}>
+            <ServiceCard title={svc.title} description={svc.desc} image={svc.img} />
+          </Grid>
         ))}
-      </Stack>
+      </Grid>
     </Container>
-  )
+  );
 }

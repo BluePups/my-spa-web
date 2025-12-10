@@ -16,7 +16,7 @@
     "@mui/icons-material": "latest",
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
-    "clsx": "latest"
+    "@emotion/cache": "latest"
   },
   "devDependencies": {
     "typescript": "latest",

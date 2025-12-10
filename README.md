@@ -1,34 +1,32 @@
-# My SPA Website - Thẩm mỹ viện (Next.js + MUI v7 + TypeScript)
+# My SPA Website - Next.js + MUI v7 (TypeScript)
 
-## Mục tiêu
-Project mẫu SPA cho thẩm mỹ viện, Next.js App Router (src/app), Material UI v7, TypeScript.
-Tất cả nội dung hiển thị bằng Tiếng Việt. Không dùng database; dữ liệu lưu tại local state hoặc log console.
+Ứng dụng SPA mẫu cho Thẩm mỹ viện, dùng Next.js App Router + Material UI v7 + TypeScript.
 
-## Cài đặt & chạy
+## Chạy nhanh
 1. `npm install`
 2. `npm run dev`
-Mở trình duyệt tại `http://localhost:3000`.
+3. Mở http://localhost:3000
 
-## Ghi chú kỹ thuật
-- Các component có sự kiện (onClick, onChange, onSubmit, onError) đều là Client Components (`'use client'`).
-- `src/app/providers.tsx` chứa ThemeProvider và Emotion Cache (Client).
-- Before/After gallery sử dụng `fs` để quét `public/sample-before-after/` tại Server Component.
-- Hình ảnh fallback được xử lý bởi `src/components/SafeImage.tsx`.
+## Ghi chú
+- Dữ liệu không dùng database; booking lưu ở local state và log ra console.
+- Theme chính dùng màu Primary: Pastel Pink `#ff9bb3`.
+- SafeImage xử lý fallback khi ảnh lỗi.
+- Mã nguồn tuân thủ quy tắc Server/Client Components: mọi file có event handler đều có `'use client'`.
+public/
+public/logo.png
 
-## Cấu trúc thư mục
-(Đã cung cấp đầy đủ trong yêu cầu)
+(file ảnh, placeholder) — bạn thêm file hình logo.png tại đường dẫn này.
 
-## Thêm ảnh
-Thêm `logo.png`, `hero-banner.jpg`, `services.jpg`, và folder `public/sample-before-after/` với ảnh before-after để hiển thị.
+public/hero-banner.jpg
 
-Bạn chỉ cần đặt các file ảnh sau vào thư mục public/:
+(file ảnh banner) — bạn thêm file ảnh.
 
-public/logo.png (logo cửa hàng)
+public/services.jpg
 
-public/hero-banner.jpg (hero banner)
+(file ảnh services).
 
-public/services.jpg (ảnh biểu diễn dịch vụ)
+public/sample-before-after/combined1.jpg
 
-public/sample-before-after/combined1.jpg (ví dụ ảnh before/after)
+(file ảnh before-after sample).
 
-(Do hạn chế văn bản, mình liệt kê tên file. Trong repository thực tế, thêm ảnh thực tế vào public.)
+Ở output này tôi liệt kê tên file; bạn cần đặt ảnh thực tế trong public/ tương ứng. Nếu không có ảnh, SafeImage sẽ hiển thị placeholder khi ảnh thất bại.

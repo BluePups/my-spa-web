@@ -1,25 +1,27 @@
-import React from 'react'
-import Container from '@mui/material/Container'
-import Typography from '@mui/material/Typography'
-import Box from '@mui/material/Box'
-import Link from 'next/link'
+import React from 'react';
+import { Container, Typography, Box, TextField, Button } from '@mui/material';
+import SafeImage from '@/components/SafeImage';
 
 export default function ContactPage() {
   return (
-    <Container maxWidth="md" sx={{ py: 6 }}>
-      <Typography variant="h4" sx={{ mb: 2 }}>Liên hệ</Typography>
-      <Typography variant="body1" sx={{ mb: 1 }}>
-        Địa chỉ: 123 Đường Làn Sóng, Quận Yêu Thương, Thành phố.
-      </Typography>
-      <Typography variant="body1" sx={{ mb: 1 }}>
-        Hotline: <strong>0909 123 456</strong>
-      </Typography>
-      <Typography variant="body1" sx={{ mb: 2 }}>
-        Email: <strong>lienhe@ilmio.example</strong>
-      </Typography>
-      <Box sx={{ mt: 3 }}>
-        <Link href="/booking">Đặt lịch trực tuyến</Link>
+    <Container className="container" sx={{ py: 6 }}>
+      <Typography variant="h4" sx={{ mb: 2, fontWeight: 700 }}>Liên hệ</Typography>
+      <Box display="flex" gap={4} flexDirection={{ xs: 'column', md: 'row' }}>
+        <Box flex={1}>
+          <Typography variant="body1" paragraph>
+            Địa chỉ: 123 Đường Đẹp, Quận X, Thành phố Y
+          </Typography>
+          <Typography variant="body1" paragraph>
+            Điện thoại: 0900 123 456
+          </Typography>
+          <Typography variant="body1" paragraph>
+            Email: lienhe@thammyminh.vn
+          </Typography>
+        </Box>
+        <Box flexBasis="360px">
+          <SafeImage src="/services.jpg" alt="Contact" style={{ width: '100%', borderRadius: 8 }} />
+        </Box>
       </Box>
     </Container>
-  )
+  );
 }
