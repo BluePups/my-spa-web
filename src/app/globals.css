@@ -1,0 +1,63 @@
+:root {
+  --gradient-1: linear-gradient(90deg, #7b61ff 0%, #00c3a3 100%);
+  --primary: #ff9bb3;
+}
+
+/* Reset cơ bản */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #__next {
+  height: 100%;
+  font-family: Inter, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: #fff;
+  color: #222;
+  line-height: 1.5;
+}
+
+/* Header */
+.header-root {
+  background: var(--gradient-1);
+  color: white;
+}
+
+/* Hero */
+.hero {
+  width: 100%;
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Overlay hero */
+.hero .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.35));
+  z-index: 1;
+}
+
+/* Footer */
+.footer-root {
+  background: #111;
+  color: #eee;
+  padding: 32px 0;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .hero {
+    min-height: 260px;
+  }
+}
