@@ -1,30 +1,26 @@
 import React from 'react';
-import { Container, Typography } from '@mui/material';
-import path from 'path';
-import fs from 'fs';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 import BeforeAfterGallery from '@/components/BeforeAfterGallery';
+import fs from 'fs';
+import path from 'path';
 
 export default function BeforeAfterPage() {
+  // Server side read from public/sample-before-after
   const dir = path.join(process.cwd(), 'public', 'sample-before-after');
-  let images: string[] = [];
-
+  let files: string[] = [];
   try {
-    const files = fs.readdirSync(dir);
-    images = files
-      .filter((f) => /\.(jpe?g|png|webp|gif)$/i.test(f))
-      .map((f) => `/sample-before-after/${f}`);
+    files = fs.readdirSync(dir).filter((f) => /\.(jpg|jpeg|png|webp)$/i.test(f));
   } catch (err) {
-    images = [];
+    files = [];
   }
 
+  const images = files.map((f) => `/sample-before-after/${f}`);
+
   return (
-    <Container className="container" sx={{ py: 6 }}>
-      <Typography variant="h4" sx={{ mb: 2, fontWeight: 700 }}>Ảnh trước - sau</Typography>
-      {images.length === 0 ? (
-        <Typography variant="body1">Hiện chưa có ảnh mẫu. Vui lòng thêm ảnh vào thư mục <code>public/sample-before-after/</code>.</Typography>
-      ) : (
-        <BeforeAfterGallery images={images} />
-      )}
+    <Container maxWidth="lg" sx={{ py: 6 }}>
+      <Typography variant="h4" sx={{ mb: 3 }}>Before & After</Typography>
+      <BeforeAfterGallery images={images} />
     </Container>
   );
 }

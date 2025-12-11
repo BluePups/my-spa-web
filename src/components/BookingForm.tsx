@@ -1,129 +1,96 @@
-'use client';
+'use client'
 
 import React from 'react';
-import { Box, TextField, MenuItem, Button, Snackbar, Alert } from '@mui/material';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-
-type BookingData = {
-  name: string;
-  phone: string;
-  service: string;
-  datetime: Date | null;
-  note: string;
-};
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import MenuItem from '@mui/material/MenuItem';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import { LocalizationProvider, DateTimePicker } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs, { Dayjs } from 'dayjs';
 
 export default function BookingForm() {
-  const [form, setForm] = React.useState<BookingData>({
-    name: '',
-    phone: '',
-    service: '',
-    datetime: null,
-    note: ''
-  });
+  const [name, setName] = React.useState('');
+  const [phone, setPhone] = React.useState('');
+  const [service, setService] = React.useState('');
+  const [datetime, setDatetime] = React.useState<Dayjs | null>(dayjs().add(1, 'day').hour(10).minute(0));
+  const [note, setNote] = React.useState('');
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
-  const [openSnack, setOpenSnack] = React.useState(false);
-  const [snackMsg, setSnackMsg] = React.useState('');
-  const services = ['Trị liệu da', 'Tiêm filler', 'Giảm béo', 'Tẩy tế bào chết'];
+  const services = [
+    { value: 'laser', label: 'Trẻ hóa da bằng Laser' },
+    { value: 'filler', label: 'Fillers & Tiêm chất làm đầy' },
+    { value: 'bridal', label: 'Trang điểm cô dâu' }
+  ];
 
-  const validate = (): string | null => {
-    if (!form.name.trim()) return 'Vui lòng nhập họ tên';
-    if (!form.phone.trim()) return 'Vui lòng nhập số điện thoại';
-    if (!form.service.trim()) return 'Vui lòng chọn dịch vụ';
-    if (!form.datetime) return 'Vui lòng chọn ngày giờ';
-    return null;
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const err = validate();
-    if (err) {
-      setSnackMsg(err);
-      setOpenSnack(true);
+    if (!name || !phone || !service || !datetime) {
+      setOpenSnackbar(true);
       return;
     }
 
-    // Demo: lưu local (state) và log ra console (không dùng DB)
-    console.log('Booking submitted:', form);
+    const booking = {
+      name,
+      phone,
+      service,
+      datetime: datetime.toISOString(),
+      note
+    };
 
-    setSnackMsg('Đặt lịch thành công! Chúng tôi sẽ liên hệ xác nhận.');
-    setOpenSnack(true);
+    // Lưu tạm: log ra console (theo yêu cầu không dùng DB)
+    console.log('New booking:', booking);
+
+    // Hiển thị snackbar thành công
+    setOpenSnackbar(true);
 
     // Reset form
-    setForm({
-      name: '',
-      phone: '',
-      service: '',
-      datetime: null,
-      note: ''
-    });
-  };
+    setName('');
+    setPhone('');
+    setService('');
+    setDatetime(dayjs().add(1, 'day').hour(10).minute(0));
+    setNote('');
+  }
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 640 }}>
-      <TextField
-        fullWidth
-        label="Họ tên"
-        value={form.name}
-        onChange={(e) => setForm((s) => ({ ...s, name: e.target.value }))}
-        required
-        sx={{ mb: 2 }}
-      />
-      <TextField
-        fullWidth
-        label="Số điện thoại"
-        value={form.phone}
-        onChange={(e) => setForm((s) => ({ ...s, phone: e.target.value }))}
-        required
-        sx={{ mb: 2 }}
-      />
-      <TextField
-        select
-        fullWidth
-        label="Chọn dịch vụ"
-        value={form.service}
-        onChange={(e) => setForm((s) => ({ ...s, service: e.target.value }))}
-        required
-        sx={{ mb: 2 }}
-      >
-        {services.map((srv) => (
-          <MenuItem key={srv} value={srv}>
-            {srv}
-          </MenuItem>
-        ))}
-      </TextField>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <Box component="form" onSubmit={handleSubmit} noValidate>
+        <Stack spacing={2}>
+          <Typography variant="subtitle1">Vui lòng điền thông tin để chúng tôi liên hệ xác nhận</Typography>
+          <TextField label="Họ & Tên" value={name} onChange={(e) => setName(e.target.value)} required />
+          <TextField label="Số điện thoại" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+          <TextField select label="Chọn dịch vụ" value={service} onChange={(e) => setService(e.target.value)} required>
+            {services.map((s) => (
+              <MenuItem key={s.value} value={s.value}>{s.label}</MenuItem>
+            ))}
+          </TextField>
+          <DateTimePicker
+            label="Ngày & giờ"
+            value={datetime}
+            onChange={(v) => setDatetime(v)}
+            renderInput={(params) => <TextField {...params} required />}
+          />
+          <TextField label="Ghi chú (tuỳ chọn)" value={note} onChange={(e) => setNote(e.target.value)} multiline rows={3} />
+          <Stack direction="row" spacing={2}>
+            <Button type="submit" variant="contained">Gửi yêu cầu</Button>
+            <Button type="button" variant="outlined" onClick={() => { setName(''); setPhone(''); setService(''); setDatetime(dayjs().add(1, 'day').hour(10).minute(0)); setNote(''); }}>Xóa</Button>
+          </Stack>
+        </Stack>
 
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <DateTimePicker
-          label="Ngày giờ"
-          value={form.datetime}
-          onChange={(newVal) => setForm((s) => ({ ...s, datetime: newVal }))}
-          renderInput={(params) => <TextField {...params} fullWidth sx={{ mb: 2 }} required />}
-        />
-      </LocalizationProvider>
-
-      <TextField
-        fullWidth
-        multiline
-        rows={3}
-        label="Ghi chú"
-        value={form.note}
-        onChange={(e) => setForm((s) => ({ ...s, note: e.target.value }))}
-        sx={{ mb: 2 }}
-      />
-
-      <Button type="submit" variant="contained" color="primary">Gửi yêu cầu đặt lịch</Button>
-
-      <Snackbar
-        open={openSnack}
-        autoHideDuration={3000}
-        onClose={() => setOpenSnack(false)}
-      >
-        <Alert onClose={() => setOpenSnack(false)} severity="success" sx={{ width: '100%' }}>
-          {snackMsg}
-        </Alert>
-      </Snackbar>
-    </Box>
+        <Snackbar
+          open={openSnackbar}
+          autoHideDuration={3000}
+          onClose={() => setOpenSnackbar(false)}
+        >
+          <Alert onClose={() => setOpenSnackbar(false)} severity={name && phone && service && datetime ? "success" : "warning"} sx={{ width: '100%' }}>
+            {name && phone && service && datetime ? 'Đặt lịch thành công! Chúng tôi sẽ liên hệ lại.' : 'Vui lòng điền đầy đủ thông tin bắt buộc.'}
+          </Alert>
+        </Snackbar>
+      </Box>
+    </LocalizationProvider>
   );
 }

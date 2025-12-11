@@ -1,31 +1,29 @@
-'use client';
+'use client'
 
 import React, { useState } from 'react';
 
-type Props = {
+interface Props extends React.ImgHTMLAttributes<HTMLImageElement> {
   src: string;
   alt: string;
   className?: string;
   style?: React.CSSProperties;
-};
+}
 
-const PLACEHOLDER = 'https://placehold.co/600x400?text=Image+Missing';
-
-export default function SafeImage({ src, alt, className, style }: Props) {
-  const [imgSrc, setImgSrc] = useState<string>(src);
+export default function SafeImage({ src, alt, className, style, ...rest }: Props) {
+  const [imgSrc, setImgSrc] = useState(src);
+  const placeholder = 'https://placehold.co/1200x800?text=Image+Missing';
 
   return (
-    // eslint-disable-next-line jsx-a11y/alt-text
+    // intentionally using native img for performance; onError handled here (client component)
     <img
       src={imgSrc}
       alt={alt}
       className={className}
       style={style}
       onError={() => {
-        if (imgSrc !== PLACEHOLDER) {
-          setImgSrc(PLACEHOLDER);
-        }
+        if (imgSrc !== placeholder) setImgSrc(placeholder);
       }}
+      {...rest}
     />
   );
 }

@@ -1,11 +1,12 @@
 import React from 'react';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 import BookingForm from '@/components/BookingForm';
-import { Container, Typography } from '@mui/material';
 
 export default function BookingPage() {
   return (
-    <Container className="container" sx={{ py: 6 }}>
-      <Typography variant="h4" sx={{ mb: 2, fontWeight: 700 }}>Đặt lịch khám / liệu trình</Typography>
+    <Container maxWidth="sm" sx={{ py: 6 }}>
+      <Typography variant="h4" sx={{ mb: 3 }}>Đặt lịch dịch vụ</Typography>
       <BookingForm />
     </Container>
   );

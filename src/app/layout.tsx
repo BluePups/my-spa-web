@@ -5,8 +5,8 @@ import Footer from '@/components/Footer';
 import React from 'react';
 
 export const metadata = {
-  title: 'Thẩm Mỹ Viện Minh - Dịch vụ chuyên nghiệp',
-  description: 'Trang web demo Thẩm mỹ viện - đặt lịch, dịch vụ, trước sau'
+  title: 'Thẩm mỹ viện Ngọc Ánh',
+  description: 'Website demo thẩm mỹ viện — đặt lịch, dịch vụ, before/after'
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -15,7 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Providers>
           <Header />
-          <main style={{ minHeight: '70vh' }}>{children}</main>
+          <main>{children}</main>
           <Footer />
         </Providers>
       </body>

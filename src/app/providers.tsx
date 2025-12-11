@@ -1,18 +1,15 @@
-'use client';
+'use client'
 
-import React from 'react';
-import { CacheProvider } from '@emotion/react';
+import * as React from 'react';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import createCache from '@emotion/cache';
-import { ThemeProvider, CssBaseline } from '@mui/material';
+import { CacheProvider } from '@emotion/react';
 import theme from '@/theme/theme';
-
-type Props = {
-  children: React.ReactNode;
-};
 
 const clientSideEmotionCache = createCache({ key: 'css', prepend: true });
 
-export default function Providers({ children }: Props) {
+export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <CacheProvider value={clientSideEmotionCache}>
       <ThemeProvider theme={theme}>
