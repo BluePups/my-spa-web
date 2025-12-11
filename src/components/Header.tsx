@@ -1,82 +1,59 @@
-'use client'
+'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Link from 'next/link';
+import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import SafeImage from './SafeImage';
-import Stack from '@mui/material/Stack';
+import Link from 'next/link';
+import SafeImage from '@/components/SafeImage';
 
 export default function Header() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <>
-      <AppBar position="static" sx={{
-        background: 'linear-gradient(90deg,#6c5ce7,#00b894)',
-        boxShadow: 'none'
-      }}>
-        <Container maxWidth="lg">
-          <Toolbar disableGutters sx={{ gap: 2 }}>
-            <SafeImage src="/logo.png" alt="logo" style={{ width: 56, height: 56, borderRadius: 8 }} />
-            <Typography variant="h6" sx={{ flexGrow: 1, ml: 1, fontWeight: 700 }}>
-              Thẩm mỹ viện Ngọc Ánh
+      <AppBar position="static" elevation={0} sx={{ background: 'linear-gradient(90deg,var(--gradient-header-start),var(--gradient-header-end))' }}>
+        <Toolbar>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Link href="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+              <SafeImage src="/logo.png" alt="logo" style={{ width: 48, height: 48, objectFit: 'contain' }} />
+            </Link>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: '#fff', fontWeight: 700 }}>
+              Thẩm Mỹ Thanh Hải
             </Typography>
+          </Box>
 
-            <Box sx={{ display: { xs: 'none', md: 'block' } }}>
-              <Stack direction="row" spacing={2}>
-                <Link href="/"><Button variant="text">Trang chủ</Button></Link>
-                <Link href="/services"><Button variant="text">Dịch vụ</Button></Link>
-                <Link href="/before-after"><Button variant="text">Before/After</Button></Link>
-                <Link href="/about"><Button variant="text">Giới thiệu</Button></Link>
-                <Link href="/contact"><Button variant="text">Liên hệ</Button></Link>
-                <Link href="/booking"><Button variant="contained">Đặt lịch</Button></Link>
-              </Stack>
-            </Box>
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
+            <Button href="/" color="inherit">Trang chủ</Button>
+            <Button href="/services" color="inherit">Dịch vụ</Button>
+            <Button href="/before-after" color="inherit">Before/After</Button>
+            <Button href="/about" color="inherit">Về chúng tôi</Button>
+            <Button href="/contact" color="inherit">Liên hệ</Button>
+            <Button href="/booking" variant="contained" sx={{ ml: 1 }}>Đặt lịch</Button>
+          </Box>
 
-            <IconButton edge="end" color="inherit" aria-label="menu" onClick={() => setOpen(true)} sx={{ display: { md: 'none' } }}>
-              <MenuIcon />
-            </IconButton>
-          </Toolbar>
-        </Container>
+          <IconButton edge="end" color="inherit" aria-label="menu" sx={{ display: { md: 'none' } }} onClick={() => setOpen(true)}>
+            <MenuIcon />
+          </IconButton>
+        </Toolbar>
       </AppBar>
 
       <Drawer anchor="right" open={open} onClose={() => setOpen(false)}>
-        <Box sx={{ width: 260 }} role="presentation" onClick={() => setOpen(false)} onKeyDown={() => setOpen(false)}>
-          <List>
-            <ListItem>
-              <ListItemText primary="Thẩm mỹ viện Ngọc Ánh" />
-            </ListItem>
-            <ListItem button component="a" href="/">
-              <ListItemText primary="Trang chủ" />
-            </ListItem>
-            <ListItem button component="a" href="/services">
-              <ListItemText primary="Dịch vụ" />
-            </ListItem>
-            <ListItem button component="a" href="/before-after">
-              <ListItemText primary="Before/After" />
-            </ListItem>
-            <ListItem button component="a" href="/about">
-              <ListItemText primary="Giới thiệu" />
-            </ListItem>
-            <ListItem button component="a" href="/contact">
-              <ListItemText primary="Liên hệ" />
-            </ListItem>
-            <ListItem button component="a" href="/booking">
-              <ListItemText primary="Đặt lịch" />
-            </ListItem>
-          </List>
-        </Box>
+        <List sx={{ width: 260 }}>
+          <ListItem><Link href="/" onClick={() => setOpen(false)}>Trang chủ</Link></ListItem>
+          <ListItem><Link href="/services" onClick={() => setOpen(false)}>Dịch vụ</Link></ListItem>
+          <ListItem><Link href="/before-after" onClick={() => setOpen(false)}>Before/After</Link></ListItem>
+          <ListItem><Link href="/about" onClick={() => setOpen(false)}>Về chúng tôi</Link></ListItem>
+          <ListItem><Link href="/contact" onClick={() => setOpen(false)}>Liên hệ</Link></ListItem>
+          <ListItem><Link href="/booking" onClick={() => setOpen(false)}>Đặt lịch</Link></ListItem>
+        </List>
       </Drawer>
     </>
   );

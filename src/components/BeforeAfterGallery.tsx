@@ -1,36 +1,27 @@
-'use client'
+'use client';
 
 import React from 'react';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import SafeImage from './SafeImage';
+import Stack from '@mui/material/Stack';
+import SafeImage from '@/components/SafeImage';
 import Typography from '@mui/material/Typography';
 
-interface Props {
-  images: string[];
-}
+type Item = { src: string; title: string; };
 
-export default function BeforeAfterGallery({ images }: Props) {
-  if (!images || images.length === 0) {
-    return <Typography variant="body1">Chưa có ảnh mẫu. Vui lòng kiểm tra lại thư mục <code>public/sample-before-after/</code>.</Typography>;
+export default function BeforeAfterGallery({ items }: { items: Item[] }) {
+  if (!items || items.length === 0) {
+    return <Typography>Không có ảnh để hiển thị.</Typography>;
   }
 
   return (
-    <Grid container spacing={3}>
-      {images.map((src) => {
-        const name = src.split('/').pop() || 'Ảnh';
-        const title = name.replace(/\.(jpg|jpeg|png|webp)$/i, '').replace(/[-_]/g, ' ');
-        return (
-          <Grid item xs={12} sm={6} md={4} key={src}>
-            <Box sx={{ borderRadius: 2, overflow: 'hidden', boxShadow: 2 }}>
-              <SafeImage src={src} alt={title} style={{ width: '100%', height: 260, objectFit: 'cover' }} />
-              <Box sx={{ p: 1 }}>
-                <Typography variant="subtitle1">{title}</Typography>
-              </Box>
-            </Box>
-          </Grid>
-        );
-      })}
-    </Grid>
+    <Stack direction="row" flexWrap="wrap" gap={2}>
+      {items.map((it) => (
+        <div key={it.src} style={{ width: 320, borderRadius: 8, overflow: 'hidden' }}>
+          <SafeImage src={it.src} alt={it.title} style={{ width: '100%', height: 220, objectFit: 'cover' }} />
+          <div style={{ padding: 12 }}>
+            <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>{it.title}</Typography>
+          </div>
+        </div>
+      ))}
+    </Stack>
   );
 }

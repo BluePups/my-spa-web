@@ -9,18 +9,22 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.0",
-    "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^7.0.0",
-    "@mui/material": "^7.0.0",
-    "@mui/x-date-pickers": "^7.0.0",
-    "dayjs": "^1.11.9",
-    "next": "^14.2.33",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "@mui/material": "latest",
+    "@mui/icons-material": "latest",
+    "@emotion/react": "latest",
+    "@emotion/styled": "latest",
+    "@mui/x-date-pickers": "latest",
+    "dayjs": "latest",
+    "@mui/material-nextjs": "latest"
   },
   "devDependencies": {
-    "@types/node": "25.0.0",
-    "typescript": "^5.5.0"
+    "typescript": "latest",
+    "@types/react": "latest",
+    "@types/node": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest"
   }
 }

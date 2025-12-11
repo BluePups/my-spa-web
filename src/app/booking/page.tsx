@@ -5,8 +5,8 @@ import BookingForm from '@/components/BookingForm';
 
 export default function BookingPage() {
   return (
-    <Container maxWidth="sm" sx={{ py: 6 }}>
-      <Typography variant="h4" sx={{ mb: 3 }}>Đặt lịch dịch vụ</Typography>
+    <Container className="container section">
+      <Typography variant="h2" sx={{ mb: 2 }}>Đặt lịch dịch vụ</Typography>
       <BookingForm />
     </Container>
   );

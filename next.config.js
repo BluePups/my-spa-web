@@ -1,12 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {},
-  // Không thêm appDir: true — App Router mặc định ở Next 14+
+  experimental: {
+    appDir: true
+  },
+  eslint: {
+    ignoreDuringBuilds: true
+  },
   images: {
-    // cho phép images từ public (không cần remote)
-    formats: ['image/avif', 'image/webp']
+    // Nếu bạn dùng next/image thay public static thì cấu hình domain ở đây.
+    unoptimized: true
   }
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

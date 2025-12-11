@@ -1,44 +1,38 @@
 import React from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import CardActionArea from '@mui/material/CardActionArea';
 import Box from '@mui/material/Box';
-import SafeImage from './SafeImage';
-import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import SafeImage from '@/components/SafeImage';
 
-interface Props {
+type Props = {
   title: string;
   description: string;
   image: string;
-}
+};
 
 export default function ServiceCard({ title, description, image }: Props) {
   return (
-    <Card sx={{
+    <Box sx={{
+      width: 300,
       borderRadius: 2,
+      overflow: 'hidden',
+      boxShadow: '0 10px 24px rgba(0,0,0,0.06)',
+      transform: 'translateZ(0)',
       transition: 'transform 0.25s ease, box-shadow 0.25s ease',
-      '&:hover': {
-        transform: 'translateY(-8px) rotateX(2deg)',
-        boxShadow: 6
+      ':hover': {
+        transform: 'translateY(-6px) scale(1.02)',
+        boxShadow: '0 16px 40px rgba(0,0,0,0.12)'
       }
     }}>
-      <CardActionArea>
-        <Box sx={{ position: 'relative', height: 180, overflow: 'hidden' }}>
-          <SafeImage src={image} alt={title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          <Box sx={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(180deg, rgba(0,0,0,0.0), rgba(0,0,0,0.28))'
-          }} />
-        </Box>
-        <CardContent>
-          <Stack spacing={1}>
-            <Typography variant="h6">{title}</Typography>
-            <Typography variant="body2" color="text.secondary">{description}</Typography>
-          </Stack>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+      <div style={{ position: 'relative', overflow: 'hidden', height: 180 }}>
+        <SafeImage src={image} alt={title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,0.35))' }} />
+      </div>
+      <Box sx={{ p: 2 }}>
+        <Typography variant="h6" sx={{ mb: 1 }}>{title}</Typography>
+        <Typography variant="body2" sx={{ mb: 2 }}>{description}</Typography>
+        <Button href="/booking" variant="contained" size="small">Đặt lịch</Button>
+      </Box>
+    </Box>
   );
 }
